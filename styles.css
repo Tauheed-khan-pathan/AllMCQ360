@@ -112,7 +112,7 @@ html[data-theme="dark"] .card h2 { color: #4ade80; }
 /* ---------- Quiz ---------- */
 .scorebar { position: sticky; top: 10px; z-index: 10; display: flex; justify-content: space-between; gap: 10px; background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 11px 16px; margin-bottom: 14px; font-size: 14px; box-shadow: var(--shadow); }
 .scorebar b { color: var(--green); font-weight: 800; }
-.qcard { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 20px; margin-bottom: 14px; box-shadow: var(--shadow); }
+.qcard { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 20px; margin-bottom: 14px; box-shadow: var(--shadow); scroll-margin-top: 70px; }
 .qcard h2 { font-size: 17px; line-height: 1.5; font-weight: 700; letter-spacing: -0.01em; margin-bottom: 14px; }
 .qnum { display: inline-block; background: var(--green-soft); color: var(--green); font-size: 11.5px; font-weight: 800; letter-spacing: 0.03em; border-radius: 20px; padding: 3px 10px; margin-bottom: 10px; }
 a.qnum { text-decoration: none; }

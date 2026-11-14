@@ -113,9 +113,18 @@
     }
   });
   window.addEventListener("hashchange", function () { goToQuestion(hashQuestion(), true); });
-  /* On load with a hash: run now (script runs at end of body) and again on load, in case the browser's own fragment jump interfered. */
-  goToQuestion(hashQuestion(), true);
-  window.addEventListener("load", function () { goToQuestion(hashQuestion(), true); });
+  /* On load with a hash: run now (script runs at end of body) and again on load.
+     Strip the hash first: the browser's own fragment jump races our smooth scroll
+     and lands the card under the sticky scorebar (~30px). We scroll ourselves,
+     then restore the hash with replaceState (which never scrolls), so the shared
+     link stays copyable and refreshable. */
+  var dlTarget = hashQuestion();
+  if (dlTarget) { try { history.replaceState(null, "", window.location.pathname + window.location.search); } catch (e) {} }
+  goToQuestion(dlTarget, true);
+  window.addEventListener("load", function () {
+    goToQuestion(dlTarget, true);
+    if (dlTarget) { setTimeout(function () { try { history.replaceState(null, "", "#q" + dlTarget); } catch (e) {} }, 900); }
+  });
   /* Try Again: reset in place (no reload, so scroll reliably returns to the top). */
   var tryBtn = document.getElementById("tryAgain");
   if (tryBtn) {

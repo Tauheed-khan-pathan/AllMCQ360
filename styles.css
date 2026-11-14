@@ -38,7 +38,7 @@ html[data-theme="dark"] {
   --shadow-lift: 0 8px 20px rgba(0, 0, 0, 0.45);
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: -apple-system, "Segoe UI", Roboto, Arial, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+body { font-family: -apple-system, "Segoe UI", Roboto, Arial, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; min-height: 100dvh; }
 a { color: var(--green); }
 
 /* ---------- Slim header: brand | search | dark-mode toggle, one row ---------- */
@@ -60,7 +60,7 @@ a { color: var(--green); }
 .tab.active { background: #166534; border-color: #166534; color: #fff; }
 
 /* ---------- Layout ---------- */
-.wrap { max-width: 860px; margin: 0 auto; padding: 4px 14px 40px; }
+.wrap { max-width: 860px; margin: 0 auto; padding: 4px 14px 40px; flex: 1; width: 100%; }
 .wrap.narrow { max-width: 720px; }
 .crumb { font-size: 13px; color: var(--muted); margin-bottom: 10px; }
 .crumb a { color: var(--green); text-decoration: none; }

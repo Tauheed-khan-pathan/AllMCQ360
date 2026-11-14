@@ -5,39 +5,38 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>All MCQ 360 — Subject-wise MCQs with Simple Explanations</title>
 <meta name="description" content="All MCQ 360 — 1,500 free MCQs for sarkari exams: General Knowledge, Maths, Reasoning, English, Science, History, Geography, Polity, Current Affairs, Computer Awareness, Indian Economy, Environment &amp; Ecology, Art &amp; Culture, Sports and Banking Awareness. 100 MCQs per subject, each with the simplest explanation.">
+<link rel="canonical" href="https://tauheed-khan-pathan.github.io/AllMCQ360/">
+<meta property="og:title" content="All MCQ 360 — Subject-wise MCQs with Simple Explanations">
+<meta property="og:description" content="1,500 free MCQs for sarkari exams — 15 subjects, 100 MCQs each, with the simplest explanation for every question.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://tauheed-khan-pathan.github.io/AllMCQ360/">
+<meta property="og:site_name" content="All MCQ 360">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%23166534'/%3E%3Ctext x='50' y='68' font-size='55' text-anchor='middle' fill='white' font-family='Arial' font-weight='bold'%3E?%3C/text%3E%3C/svg%3E">
-<style>
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: -apple-system, "Segoe UI", Roboto, Arial, sans-serif; background: #f4f6f8; color: #1f2937; line-height: 1.6; }
-  header { background: #166534; color: #fff; padding: 26px 18px; text-align: center; }
-  header h1 { font-size: 26px; }
-  header p { font-size: 14px; opacity: .9; margin-top: 6px; }
-  .wrap { max-width: 860px; margin: 0 auto; padding: 20px 14px 40px; }
-  .how { background: #fff; border: 1px solid #e5e7eb; border-radius: 12px; padding: 16px 18px; margin-bottom: 20px; font-size: 14px; text-align: center; }
-  .how b { color: #166534; }
-  .how .green { color: #16a34a; font-weight: 700; }
-  .how .red { color: #dc2626; font-weight: 700; }
-  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
-  .card { display: block; background: #fff; border: 1px solid #e5e7eb; border-radius: 12px; padding: 20px 16px; text-align: center; text-decoration: none; color: #1f2937; }
-  .card:hover { border-color: #166534; }
-  .card h2 { font-size: 17px; color: #166534; margin-bottom: 6px; }
-  .card p { font-size: 13px; color: #6b7280; }
-  .card .count { display: inline-block; margin-top: 10px; background: #dcfce7; color: #166534; font-size: 12px; font-weight: 700; border-radius: 20px; padding: 3px 12px; }
-  footer { text-align: center; font-size: 13px; color: #6b7280; padding: 0 14px 30px; }
-  @media (max-width: 600px) {
-    .grid { grid-template-columns: repeat(2, 1fr); }
-    header h1 { font-size: 22px; }
-  }
-</style>
+<script>try{if(localStorage.getItem('mcq360-theme')==='dark'){document.documentElement.setAttribute('data-theme','dark');}}catch(e){}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"All MCQ 360","description":"1,500 free subject-wise MCQs for sarkari exams, 100 MCQs per subject, each with the simplest explanation.","url":"https://tauheed-khan-pathan.github.io/AllMCQ360/"}</script>
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<header>
+<header class="site-header">
+  <div class="site-header-inner">
+    <a class="brand" href="index.html">All MCQ 360</a>
+    <nav class="main-nav" aria-label="Main navigation">
+      <a href="index.html" class="active">Home</a>
+      <a href="index.html#subjects">Subjects</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+      <button class="theme-toggle" id="themeToggle" type="button">🌙 Dark</button>
+    </nav>
+  </div>
+</header>
+<div class="hero">
   <h1>All MCQ 360</h1>
   <p>Subject-wise MCQs with the simplest explanations — free practice for sarkari exams.</p>
-</header>
+</div>
 <div class="wrap">
   <div class="how"><b>How it works:</b> Click an option — <span class="green">green</span> means correct, <span class="red">red</span> means wrong — and the simplest explanation appears below each question.</div>
-  <div class="grid">
+  <input class="search-box" id="subjectSearch" type="search" placeholder="Search subjects..." aria-label="Search subjects">
+  <div class="grid" id="subjects">
     <a class="card" href="subject/gk.html"><h2>General Knowledge</h2><p>Most-asked GK questions</p><span class="count">100 MCQs</span></a>
     <a class="card" href="subject/maths.html"><h2>Maths</h2><p>Arithmetic &amp; number skills</p><span class="count">100 MCQs</span></a>
     <a class="card" href="subject/reasoning.html"><h2>Reasoning</h2><p>Logical &amp; analytical questions</p><span class="count">100 MCQs</span></a>
@@ -54,7 +53,32 @@
     <a class="card" href="subject/sports.html"><h2>Sports</h2><p>Olympics, cricket &amp; trophies</p><span class="count">100 MCQs</span></a>
     <a class="card" href="subject/banking-awareness.html"><h2>Banking Awareness</h2><p>RBI, banks &amp; payments</p><span class="count">100 MCQs</span></a>
   </div>
+  <p class="no-results" id="noResults">No subjects found</p>
 </div>
-<footer>All MCQ 360 — 1,500 free MCQs, 100 per subject, with simple explanations.</footer>
+<footer class="site-footer">
+  <div class="site-footer-inner">
+    <div class="foot-links"><a href="about.html">About</a> <a href="contact.html">Contact</a> <a href="privacy.html">Privacy</a> <a href="sitemap.xml">Sitemap</a></div>
+    <p>&copy; 2026 All MCQ 360 — 1,500 free MCQs, 100 per subject, with simple explanations.</p>
+  </div>
+</footer>
+<script>
+(function () {
+  var input = document.getElementById("subjectSearch");
+  var cards = Array.prototype.slice.call(document.querySelectorAll("#subjects .card"));
+  var noResults = document.getElementById("noResults");
+  input.addEventListener("input", function () {
+    var q = input.value.trim().toLowerCase();
+    var visible = 0;
+    cards.forEach(function (card) {
+      var title = card.querySelector("h2").textContent.toLowerCase();
+      var show = !q || title.indexOf(q) !== -1;
+      card.style.display = show ? "" : "none";
+      if (show) visible++;
+    });
+    noResults.classList.toggle("show", visible === 0);
+  });
+})();
+</script>
+<script src="theme.js"></script>
 </body>
 </html>

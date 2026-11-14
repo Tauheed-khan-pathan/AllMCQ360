@@ -7,13 +7,12 @@
   var answered = 0, correct = 0;
   var quizEl = document.getElementById("quiz");
   if (!quizEl) return;
-  var LETTERS = ["A", "B", "C", "D"];
   QUESTIONS.forEach(function (item, i) {
     var card = document.createElement("div");
     card.className = "qcard";
     var html = '<span class="qnum">Q' + (i + 1) + '</span><h2>' + esc(item.q) + '</h2>';
     item.opts.forEach(function (opt, j) {
-      html += '<button class="opt" data-q="' + i + '" data-o="' + j + '"><span class="opt-letter">' + LETTERS[j] + '</span><span class="opt-text">' + esc(opt) + '</span></button>';
+      html += '<button class="opt" data-q="' + i + '" data-o="' + j + '">' + esc(opt) + '</button>';
     });
     html += '<div class="explain" id="ex-' + i + '"><b>Explanation:</b> ' + esc(item.why) + '</div>';
     card.innerHTML = html;
@@ -33,8 +32,6 @@
     answered++;
     document.getElementById("done").textContent = answered + " / " + TOTAL;
     document.getElementById("score").textContent = correct;
-    var pf = document.getElementById("progressFill");
-    if (pf) pf.style.width = (answered / TOTAL * 100) + "%";
     if (answered === TOTAL) {
       var r = document.getElementById("result");
       document.getElementById("resultTitle").textContent = "You scored " + correct + " / " + TOTAL;

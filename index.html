@@ -104,6 +104,7 @@
     tab.addEventListener("click", function () {
       activeTab = tab.getAttribute("data-tab");
       tabs.forEach(function (t) { t.classList.toggle("active", t === tab); });
+      tab.scrollIntoView({ behavior: "smooth", inline: "nearest", block: "nearest" });
       applyFilter();
     });
   });

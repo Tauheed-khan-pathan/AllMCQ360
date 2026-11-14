@@ -10,7 +10,7 @@
   QUESTIONS.forEach(function (item, i) {
     var card = document.createElement("div");
     card.className = "qcard";
-    var html = '<span class="qnum">Q' + (i + 1) + ' of ' + TOTAL + '</span><h2>' + esc(item.q) + '</h2>';
+    var html = '<span class="qnum">Q' + (i + 1) + '</span><h2>' + esc(item.q) + '</h2>';
     item.opts.forEach(function (opt, j) {
       html += '<button class="opt" data-q="' + i + '" data-o="' + j + '">' + esc(opt) + '</button>';
     });

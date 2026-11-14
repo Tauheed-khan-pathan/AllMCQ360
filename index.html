@@ -20,38 +20,45 @@
 <header class="site-header">
   <div class="site-header-inner">
     <a class="brand" href="index.html">All MCQ 360</a>
-    <nav class="main-nav" aria-label="Main navigation">
-      <a href="index.html" class="active">Home</a>
-      <a href="index.html#subjects">Subjects</a>
-      <a href="about.html">About</a>
-      <a href="contact.html">Contact</a>
-      <button class="theme-toggle" id="themeToggle" type="button">🌙 Dark</button>
-    </nav>
+    <input class="top-search" id="subjectSearch" type="search" placeholder="Search subjects..." aria-label="Search subjects">
+    <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch to dark mode">🌙</button>
   </div>
 </header>
-<div class="hero">
-  <h1>All MCQ 360</h1>
-  <p>Subject-wise MCQs with the simplest explanations — free practice for sarkari exams.</p>
-</div>
 <div class="wrap">
-  <div class="how"><b>How it works:</b> Click an option — <span class="green">green</span> means correct, <span class="red">red</span> means wrong — and the simplest explanation appears below each question.</div>
-  <input class="search-box" id="subjectSearch" type="search" placeholder="Search subjects..." aria-label="Search subjects">
+  <div class="tabs" id="subjectTabs" role="tablist" aria-label="Subjects">
+    <button class="tab active" type="button" role="tab" data-tab="all">All</button>
+    <button class="tab" type="button" role="tab" data-tab="gk">General Knowledge</button>
+    <button class="tab" type="button" role="tab" data-tab="maths">Maths</button>
+    <button class="tab" type="button" role="tab" data-tab="reasoning">Reasoning</button>
+    <button class="tab" type="button" role="tab" data-tab="english">English</button>
+    <button class="tab" type="button" role="tab" data-tab="science">Science</button>
+    <button class="tab" type="button" role="tab" data-tab="history">History</button>
+    <button class="tab" type="button" role="tab" data-tab="geography">Geography</button>
+    <button class="tab" type="button" role="tab" data-tab="polity">Polity</button>
+    <button class="tab" type="button" role="tab" data-tab="current-affairs">Current Affairs</button>
+    <button class="tab" type="button" role="tab" data-tab="computer-awareness">Computer Awareness</button>
+    <button class="tab" type="button" role="tab" data-tab="indian-economy">Indian Economy</button>
+    <button class="tab" type="button" role="tab" data-tab="environment-ecology">Environment &amp; Ecology</button>
+    <button class="tab" type="button" role="tab" data-tab="art-culture">Art &amp; Culture</button>
+    <button class="tab" type="button" role="tab" data-tab="sports">Sports</button>
+    <button class="tab" type="button" role="tab" data-tab="banking-awareness">Banking Awareness</button>
+  </div>
   <div class="grid" id="subjects">
-    <a class="card" href="subject/gk.html"><h2>General Knowledge</h2><p>Most-asked GK questions</p><span class="count">100 MCQs</span></a>
-    <a class="card" href="subject/maths.html"><h2>Maths</h2><p>Arithmetic &amp; number skills</p><span class="count">100 MCQs</span></a>
-    <a class="card" href="subject/reasoning.html"><h2>Reasoning</h2><p>Logical &amp; analytical questions</p><span class="count">100 MCQs</span></a>
-    <a class="card" href="subject/english.html"><h2>English</h2><p>Grammar &amp; vocabulary</p><span class="count">100 MCQs</span></a>
-    <a class="card" href="subject/science.html"><h2>Science</h2><p>Physics, chemistry &amp; biology</p><span class="count">100 MCQs</span></a>
-    <a class="card" href="subject/history.html"><h2>History</h2><p>Indian &amp; world history</p><span class="count">100 MCQs</span></a>
-    <a class="card" href="subject/geography.html"><h2>Geography</h2><p>India &amp; world geography</p><span class="count">100 MCQs</span></a>
-    <a class="card" href="subject/polity.html"><h2>Polity</h2><p>Constitution &amp; government</p><span class="count">100 MCQs</span></a>
-    <a class="card" href="subject/current-affairs.html"><h2>Current Affairs</h2><p>Latest events &amp; news</p><span class="count">100 MCQs</span></a>
-    <a class="card" href="subject/computer-awareness.html"><h2>Computer Awareness</h2><p>Computers, internet &amp; security</p><span class="count">100 MCQs</span></a>
-    <a class="card" href="subject/indian-economy.html"><h2>Indian Economy</h2><p>Economy, banking &amp; schemes</p><span class="count">100 MCQs</span></a>
-    <a class="card" href="subject/environment-ecology.html"><h2>Environment &amp; Ecology</h2><p>Nature, climate &amp; conservation</p><span class="count">100 MCQs</span></a>
-    <a class="card" href="subject/art-culture.html"><h2>Art &amp; Culture</h2><p>Dance, music &amp; heritage</p><span class="count">100 MCQs</span></a>
-    <a class="card" href="subject/sports.html"><h2>Sports</h2><p>Olympics, cricket &amp; trophies</p><span class="count">100 MCQs</span></a>
-    <a class="card" href="subject/banking-awareness.html"><h2>Banking Awareness</h2><p>RBI, banks &amp; payments</p><span class="count">100 MCQs</span></a>
+    <a class="card" data-subject="gk" href="subject/gk.html"><h2>General Knowledge</h2><p>Most-asked GK questions</p><span class="count">100 MCQs</span></a>
+    <a class="card" data-subject="maths" href="subject/maths.html"><h2>Maths</h2><p>Arithmetic &amp; number skills</p><span class="count">100 MCQs</span></a>
+    <a class="card" data-subject="reasoning" href="subject/reasoning.html"><h2>Reasoning</h2><p>Logical &amp; analytical questions</p><span class="count">100 MCQs</span></a>
+    <a class="card" data-subject="english" href="subject/english.html"><h2>English</h2><p>Grammar &amp; vocabulary</p><span class="count">100 MCQs</span></a>
+    <a class="card" data-subject="science" href="subject/science.html"><h2>Science</h2><p>Physics, chemistry &amp; biology</p><span class="count">100 MCQs</span></a>
+    <a class="card" data-subject="history" href="subject/history.html"><h2>History</h2><p>Indian &amp; world history</p><span class="count">100 MCQs</span></a>
+    <a class="card" data-subject="geography" href="subject/geography.html"><h2>Geography</h2><p>India &amp; world geography</p><span class="count">100 MCQs</span></a>
+    <a class="card" data-subject="polity" href="subject/polity.html"><h2>Polity</h2><p>Constitution &amp; government</p><span class="count">100 MCQs</span></a>
+    <a class="card" data-subject="current-affairs" href="subject/current-affairs.html"><h2>Current Affairs</h2><p>Latest events &amp; news</p><span class="count">100 MCQs</span></a>
+    <a class="card" data-subject="computer-awareness" href="subject/computer-awareness.html"><h2>Computer Awareness</h2><p>Computers, internet &amp; security</p><span class="count">100 MCQs</span></a>
+    <a class="card" data-subject="indian-economy" href="subject/indian-economy.html"><h2>Indian Economy</h2><p>Economy, banking &amp; schemes</p><span class="count">100 MCQs</span></a>
+    <a class="card" data-subject="environment-ecology" href="subject/environment-ecology.html"><h2>Environment &amp; Ecology</h2><p>Nature, climate &amp; conservation</p><span class="count">100 MCQs</span></a>
+    <a class="card" data-subject="art-culture" href="subject/art-culture.html"><h2>Art &amp; Culture</h2><p>Dance, music &amp; heritage</p><span class="count">100 MCQs</span></a>
+    <a class="card" data-subject="sports" href="subject/sports.html"><h2>Sports</h2><p>Olympics, cricket &amp; trophies</p><span class="count">100 MCQs</span></a>
+    <a class="card" data-subject="banking-awareness" href="subject/banking-awareness.html"><h2>Banking Awareness</h2><p>RBI, banks &amp; payments</p><span class="count">100 MCQs</span></a>
   </div>
   <p class="no-results" id="noResults">No subjects found</p>
 </div>
@@ -65,17 +72,29 @@
 (function () {
   var input = document.getElementById("subjectSearch");
   var cards = Array.prototype.slice.call(document.querySelectorAll("#subjects .card"));
+  var tabs = Array.prototype.slice.call(document.querySelectorAll("#subjectTabs .tab"));
   var noResults = document.getElementById("noResults");
-  input.addEventListener("input", function () {
+  var activeTab = "all";
+  function applyFilter() {
     var q = input.value.trim().toLowerCase();
     var visible = 0;
     cards.forEach(function (card) {
       var title = card.querySelector("h2").textContent.toLowerCase();
-      var show = !q || title.indexOf(q) !== -1;
+      var tabOk = activeTab === "all" || card.getAttribute("data-subject") === activeTab;
+      var searchOk = !q || title.indexOf(q) !== -1;
+      var show = tabOk && searchOk;
       card.style.display = show ? "" : "none";
       if (show) visible++;
     });
     noResults.classList.toggle("show", visible === 0);
+  }
+  input.addEventListener("input", applyFilter);
+  tabs.forEach(function (tab) {
+    tab.addEventListener("click", function () {
+      activeTab = tab.getAttribute("data-tab");
+      tabs.forEach(function (t) { t.classList.toggle("active", t === tab); });
+      applyFilter();
+    });
   });
 })();
 </script>

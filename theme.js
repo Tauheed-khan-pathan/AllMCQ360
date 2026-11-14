@@ -5,7 +5,7 @@
   if (!btn) return;
   function label() {
     var dark = document.documentElement.getAttribute("data-theme") === "dark";
-    btn.textContent = dark ? "☀ Light" : "🌙 Dark";
+    btn.textContent = dark ? "☀️" : "🌙";
     btn.setAttribute("aria-label", dark ? "Switch to light mode" : "Switch to dark mode");
   }
   btn.addEventListener("click", function () {

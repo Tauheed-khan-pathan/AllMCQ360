@@ -20,7 +20,7 @@
     card.id = "q" + (i + 1);
     card.className = "qcard" + (i >= shown ? " hidden" : "");
     card.setAttribute("data-level", lv);
-    var html = '<a class="qnum" href="#q' + (i + 1) + '">Q' + (i + 1) + '</a> <span class="lv lv-' + lv + '">' + LEVEL_LABEL[lv] + '</span><h2>' + esc(item.q) + '</h2>';
+    var html = '<a class="qnum lv-' + lv + '" href="#q' + (i + 1) + '">Q' + (i + 1) + ' <span class="lv-word">· ' + LEVEL_LABEL[lv] + '</span></a><h2>' + esc(item.q) + '</h2>';
     item.opts.forEach(function (opt, j) {
       html += '<button class="opt" data-q="' + i + '" data-o="' + j + '">' + esc(opt) + '</button>';
     });
@@ -81,13 +81,13 @@
     if (dlLabel && dlLabel.parentNode) dlLabel.parentNode.removeChild(dlLabel);
     dlLabel = null;
   }
-  function goToQuestion(n, highlight) {
+  function goToQuestion(n, highlight, instant) {
     if (!n || n < 1 || n > TOTAL) return false;
     var idx = n - 1;
     revealUpTo(Math.ceil((idx + 1) / PAGE) * PAGE);
     var card = cards[idx];
     var y = card.getBoundingClientRect().top + window.scrollY - 70;
-    window.scrollTo({ top: y, behavior: "smooth" });
+    window.scrollTo({ top: y, behavior: instant ? "auto" : "smooth" });
     if (highlight) {
       card.classList.remove("deeplink");
       void card.offsetWidth; /* restart the animation */
@@ -113,18 +113,29 @@
     }
   });
   window.addEventListener("hashchange", function () { goToQuestion(hashQuestion(), true); });
-  /* On load with a hash: run now (script runs at end of body) and again on load.
-     Strip the hash first: the browser's own fragment jump races our smooth scroll
-     and lands the card under the sticky scorebar (~30px). We scroll ourselves,
-     then restore the hash with replaceState (which never scrolls), so the shared
-     link stays copyable and refreshable. */
+  /* On load with a hash: scroll INSTANTLY, not smooth. Root cause of the ~130px
+     fresh-load reading: the landing used two chained smooth scrolls (end-of-body
+     + window load) over ~55,000px, which take ~1.7s to converge — any check or
+     glance before that sees the card mid-flight at ~130px. Measured: cardAbsTop,
+     scorebar height, header height and docH never change after the cards exist,
+     so there is no layout shift — only the slow animation. Instant scrolling
+     lands the card at exactly 70px immediately. Re-assert on load and on
+     fonts.ready as a safety net, but never fight the user: once they scroll
+     (wheel/touch), the re-asserts stop. Qn clicks and level jumps keep smooth. */
+  var userScrolled = false;
+  function markUserScroll() { userScrolled = true; }
+  window.addEventListener("wheel", markUserScroll, { passive: true });
+  window.addEventListener("touchmove", markUserScroll, { passive: true });
   var dlTarget = hashQuestion();
   if (dlTarget) { try { history.replaceState(null, "", window.location.pathname + window.location.search); } catch (e) {} }
-  goToQuestion(dlTarget, true);
+  goToQuestion(dlTarget, true, true);
   window.addEventListener("load", function () {
-    goToQuestion(dlTarget, true);
+    if (!userScrolled) goToQuestion(dlTarget, true, true);
     if (dlTarget) { setTimeout(function () { try { history.replaceState(null, "", "#q" + dlTarget); } catch (e) {} }, 900); }
   });
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(function () { if (!userScrolled) goToQuestion(dlTarget, true, true); });
+  }
   /* Try Again: reset in place (no reload, so scroll reliably returns to the top). */
   var tryBtn = document.getElementById("tryAgain");
   if (tryBtn) {

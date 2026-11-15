@@ -77,6 +77,21 @@ html[data-theme="dark"] ::selection { background: #312e81; color: #c7d2fe; }
 .theme-toggle:hover { background: rgba(255, 255, 255, 0.28); }
 .theme-toggle:active { transform: scale(0.96); }
 
+/* Subject pages: the in-subject search lives in the header (sticky), so it
+   stays visible while scrolling. Full input inline on desktop; on mobile a
+   search icon expands it into a second header row. */
+.subj-header { position: sticky; top: 0; z-index: 40; }
+.head-search { position: relative; display: flex; flex: 1 1 auto; min-width: 0; }
+.head-search .top-search { flex: 1 1 auto; min-width: 0; padding-right: 34px; }
+.head-search-toggle { display: none; background: rgba(255, 255, 255, 0.15); color: #fff; border: 1px solid rgba(255, 255, 255, 0.4); border-radius: 10px; width: 36px; height: 36px; padding: 0; align-items: center; justify-content: center; font-size: 16px; line-height: 1; cursor: pointer; flex: 0 0 auto; }
+.head-search-toggle:hover { background: rgba(255, 255, 255, 0.28); }
+@media (max-width: 600px) {
+  .head-search { display: none; }
+  .head-search-toggle { display: inline-flex; }
+  .site-header.search-open .site-header-inner { flex-wrap: wrap; }
+  .site-header.search-open .head-search { display: flex; flex: 1 1 100%; order: 3; }
+}
+
 /* ---------- Tabs strip (homepage): horizontal scroll, one row ---------- */
 .tabs { display: flex; gap: 8px; overflow-x: auto; padding: 12px 2px; scrollbar-width: none; -ms-overflow-style: none; scroll-behavior: smooth; }
 .tabs::-webkit-scrollbar { display: none; }
@@ -128,7 +143,7 @@ a.qnum:hover { text-decoration: underline; }
 .show-more:active { transform: scale(0.98); }
 
 /* ---------- Quiz ---------- */
-.scorebar { position: sticky; top: 10px; z-index: 10; display: flex; justify-content: space-between; gap: 10px; background: rgba(224, 231, 255, 0.88); border: 1px solid rgba(255, 255, 255, 0.45); border-radius: 14px; padding: 11px 16px; margin-bottom: 14px; font-size: 14px; -webkit-backdrop-filter: blur(12px) saturate(1.6); backdrop-filter: blur(12px) saturate(1.6); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35), 0 2px 12px rgba(67, 56, 202, 0.10); }
+.scorebar { position: sticky; top: 66px; z-index: 10; display: flex; justify-content: space-between; gap: 10px; background: rgba(224, 231, 255, 0.88); border: 1px solid rgba(255, 255, 255, 0.45); border-radius: 14px; padding: 11px 16px; margin-bottom: 14px; font-size: 14px; -webkit-backdrop-filter: blur(12px) saturate(1.6); backdrop-filter: blur(12px) saturate(1.6); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35), 0 2px 12px rgba(67, 56, 202, 0.10); }
 .scorebar b { color: var(--brand-dark); font-weight: 800; }
 .qcard { background: #ffffff; border: 1px solid #e5e7eb; border-radius: 16px; padding: 20px; margin-bottom: 14px; -webkit-backdrop-filter: blur(24px) saturate(1.6); backdrop-filter: blur(24px) saturate(1.6); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35), inset 0 -1px 0 rgba(255, 255, 255, 0.18), 0 2px 12px rgba(67, 56, 202, 0.10); scroll-margin-top: 70px; }
 .qcard h2 { font-size: 17px; line-height: 1.5; font-weight: 700; letter-spacing: -0.01em; margin-bottom: 14px; }
@@ -205,9 +220,10 @@ a.qnum:hover { text-decoration: underline; }
 .sub-card { position: relative; display: flex; flex-direction: column; gap: 2px; background: #ffffff; border: 1px solid #e5e7eb; border-radius: 14px; padding: 12px 13px; text-align: left; cursor: pointer; box-shadow: 0 2px 12px rgba(67, 56, 202, 0.10); transition: border-color 0.12s ease, transform 0.12s ease; color: var(--text); font-family: inherit; }
 .sub-card:hover { border-color: var(--brand); transform: translateY(-1px); }
 .sub-card.active { border: 2px solid var(--brand); background: var(--brand-soft); }
-.sub-name { font-size: 14px; font-weight: 700; color: var(--brand-dark); line-height: 1.35; padding-right: 52px; }
+.sub-name { font-size: 14px; font-weight: 700; color: var(--brand-dark); line-height: 1.35; }
 .sub-count { font-size: 12.5px; color: var(--muted); }
-.sub-test { position: absolute; top: 10px; right: 10px; background: #6366f1; color: #fff; font-size: 11.5px; font-weight: 700; border-radius: 20px; padding: 4px 10px; cursor: pointer; }
+/* Bottom-of-card test button: slim, slightly narrower than the card. */
+.sub-test-btn { display: block; margin: 8px 4px 0; background: #6366f1; color: #fff; font-size: 12px; font-weight: 700; border-radius: 20px; padding: 4px 10px; cursor: pointer; text-align: center; line-height: 1.3; }
 .clear-sub { margin-top: 10px; border: 1.5px solid var(--brand); background: var(--card); color: var(--brand-dark); border-radius: 10px; padding: 8px 14px; font-size: 13.5px; font-weight: 700; cursor: pointer; }
 .qtools { display: flex; gap: 8px; margin-bottom: 10px; }
 .qsearch-wrap { position: relative; flex: 1; min-width: 0; }

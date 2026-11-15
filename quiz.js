@@ -5,7 +5,9 @@
    each sub-category; level buttons jump to a level.
    Phase 2: sub-category filter cards, in-subject search, "Show answer"
    reveal (viewed, never scored), bookmarks + Bookmarked filter,
-   progress saved per subject (Resume), print + share (copy #qN link).
+   progress saved per subject (Resume), share (native share sheet first,
+   WhatsApp fallback — same as All Naat Lyrics). Sub-card "Take a test"
+   starts a real timed test for that sub-category.
    Progress key: mcq360-progress-<slug> {ans:{qi:picked}, bm:[qi], viewed:[qi]} */
 (function () {
   var QUESTIONS = window.QUESTIONS;
@@ -68,7 +70,7 @@
       + '<span class="qcard-actions">'
       + '<button class="show-ans" type="button" data-q="' + i + '">Show answer</button>'
       + '<button class="bm' + (bmSet[i] ? " on" : "") + '" type="button" data-q="' + i + '" aria-label="Bookmark this question">' + (bmSet[i] ? "★" : "☆") + '</button>'
-      + '<button class="share-q" type="button" data-q="' + i + '" aria-label="Copy link to this question">🔗</button>'
+      + '<button class="share-q" type="button" data-q="' + i + '" aria-label="Share this question">Share</button>'
       + '</span></div>'
       + '<h2>' + esc(item.q) + '</h2>';
     item.opts.forEach(function (opt, j) {
@@ -195,9 +197,9 @@
       b.setAttribute("data-sub", s.name);
       b.innerHTML = '<span class="sub-name">' + esc(s.name) + '</span>'
         + '<span class="sub-count">' + s.count + (s.count === 1 ? " question" : " questions") + '</span>'
-        + '<span class="sub-test" data-sub="' + esc(s.name) + '">▶ Test</span>';
+        + '<span class="sub-test-btn" data-sub="' + esc(s.name) + '">▶ Take a test</span>';
       b.addEventListener("click", function (e) {
-        var t = e.target.closest(".sub-test");
+        var t = e.target.closest(".sub-test-btn");
         if (t) {
           e.stopPropagation();
           if (window.__mcq360_startTest) window.__mcq360_startTest(t.getAttribute("data-sub"));
@@ -284,7 +286,7 @@
     if (on) viewedSet[i] = true; else delete viewedSet[i];
   }
 
-  /* ---------- toast + copy ---------- */
+  /* ---------- toast + share (native sheet first, WhatsApp fallback) ---------- */
   var toastEl = document.getElementById("toast");
   var toastTimer = null;
   function toast(msg) {
@@ -294,34 +296,38 @@
     if (toastTimer) clearTimeout(toastTimer);
     toastTimer = setTimeout(function () { toastEl.hidden = true; }, 2000);
   }
-  function copyText(text, msg) {
-    function done() { toast(msg); }
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(text).then(done, function () { fallbackCopy(text, done); });
+  /* Same behaviour as the All Naat Lyrics share button: try the system
+     share sheet with title + text + link; if the browser has no share
+     sheet, open WhatsApp with the same text + link. */
+  function shareContent(title, text, url) {
+    var data = { title: title, text: text, url: url };
+    function viaWhatsApp() {
+      window.open("https://wa.me/?text=" + encodeURIComponent(text + "\n" + url), "_blank");
+    }
+    if (navigator.share) {
+      try {
+        navigator.share(data).then(function () { toast("Shared"); }, function (err) {
+          if (err && err.name === "AbortError") return; /* user cancelled */
+          viaWhatsApp();
+        });
+      } catch (e) { viaWhatsApp(); }
     } else {
-      fallbackCopy(text, done);
+      viaWhatsApp();
     }
   }
-  function fallbackCopy(text, done) {
-    try {
-      var ta = document.createElement("textarea");
-      ta.value = text;
-      ta.style.position = "fixed"; ta.style.opacity = "0";
-      document.body.appendChild(ta);
-      ta.select();
-      document.execCommand("copy");
-      document.body.removeChild(ta);
-    } catch (e) {}
-    done();
+  function subjectName() {
+    var crumb = document.querySelector(".crumb b");
+    return crumb ? crumb.textContent.trim() : "All MCQ 360";
   }
   var shareSubjectBtn = document.getElementById("shareSubjectBtn");
   if (shareSubjectBtn) {
     shareSubjectBtn.addEventListener("click", function () {
-      copyText(window.location.href.split("#")[0], "Subject link copied");
+      var subj = subjectName();
+      shareContent(subj + " MCQs — All MCQ 360",
+        "Practice " + subj + " MCQs on All MCQ 360",
+        window.location.href.split("#")[0]);
     });
   }
-  var printBtn = document.getElementById("printBtn");
-  if (printBtn) printBtn.addEventListener("click", function () { window.print(); });
   var testBtn = document.getElementById("testBtn");
   if (testBtn) {
     testBtn.addEventListener("click", function () {
@@ -504,7 +510,8 @@
     var sq = e.target.closest(".share-q");
     if (sq) {
       var si = +sq.getAttribute("data-q");
-      copyText(window.location.origin + window.location.pathname + "#q" + (si + 1), "Link to Q" + (si + 1) + " copied");
+      var url = window.location.origin + window.location.pathname + "#q" + (si + 1);
+      shareContent(subjectName() + " — Q" + (si + 1) + " | All MCQ 360", QUESTIONS[si].q, url);
       return;
     }
     var btn = e.target.closest(".opt");

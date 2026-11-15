@@ -25,4 +25,18 @@
     label();
   });
   label();
+
+  /* Subject pages: header search icon expands the search row (mobile). */
+  var hsBtn = document.getElementById("headSearchToggle");
+  var hsHeader = document.querySelector(".site-header");
+  if (hsBtn && hsHeader) {
+    hsBtn.addEventListener("click", function () {
+      var open = hsHeader.classList.toggle("search-open");
+      hsBtn.setAttribute("aria-expanded", open ? "true" : "false");
+      if (open) {
+        var si = document.getElementById("qSearch");
+        if (si) si.focus();
+      }
+    });
+  }
 })();
